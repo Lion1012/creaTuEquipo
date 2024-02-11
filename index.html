@@ -2,23 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>creaTuEquipo</title>
   </head>
   <body>
     <div id="app">
       <div style="display: block;">
-        <h1>Crea tu equipo de forma aleatoria!</h1>
+        <h1>Crea tu equipo de forma aleatoria!</h1> <!-- h1 que uso de titulo para mostrar de que va la pag-->
       </div>
-      <div style="display: flex; gap: 10px;">
-        <button id="pokemonRandom1">Pokemon random 1</button>
-        <button id="limpiar1">limpiar</button>
-      </div>
-      <div id="pokemon1"></div>
 
       <div style="display: flex; gap: 10px;">
-        <button id="pokemonRandom2">Pokemon random 2</button>
+        <button id="pokemonRandom1">Pokemon random 1</button> <!-- Primer grupo de botones mostrado -->
+        <button id="limpiar1">limpiar</button>
+      </div>
+      <div id="pokemon1"></div>  <!-- Mostraria el pokemon una pulses el boton -->
+
+      <div style="display: flex; gap: 10px;">
+        <button id="pokemonRandom2">Pokemon random 2</button>  <!-- Segundo grupo de botones mostrado -->
         <button id="limpiar2">limpiar</button>
       </div>
       <div id="pokemon2"></div>
@@ -46,7 +47,8 @@
         <button id="limpiar6">limpiar</button>
       </div>
       <div id="pokemon6"></div>
-      <div>LionDev &copy; 2024</div>
+
+      <div>LionDev &copy; 2024</div> <!-- Mi marca de agua -->
       
     </div>
     <script type="module" src="/src/main.js"></script>
