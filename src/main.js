@@ -1,42 +1,61 @@
-import '../style.css'
+import "../style.css";
 
-let pokemon = ""
-let equipo = {} // {1: 1, 2: 4, 3: 7}
-// Funcion de tipo async, que recibe un numero y te da el pokemon correspondiente segun numero de pokedex usando la pokeapi
-async function iniciarPokemon(num){
-    pokemon = await(await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`)).json()
+let pokemon = "";
+let equipo = {}; // {1: 1, 2: 4, 3: 7}
 
+// Función asíncrona para obtener datos de Pokémon por número de Pokédex usando la PokeAPI
+async function iniciarPokemon(num) {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${num}`);
+    const data = await response.json();
+    pokemon = data;
+  } catch (error) {
+    console.error("Error fetching Pokemon data:", error);
+    throw new Error("Failed to fetch Pokemon data");
+  }
 }
-// Funcion de tipo promesa, mas utilizada para funciones cortas, en las cuales con el .then le vas pasando paso a paso lo que hace, ( como es corto usamos funciones tipo arrow)
-function iniciarPokemonPromesas(num){
-    fetch(`https://pokeapi.co/api/v2/pokemon/${num}`)
-    .then(response => response.json())
-    .then(json => pokemon = json)
+
+// Función basada en promesas para obtener datos de Pokémon
+function iniciarPokemonPromesas(num) {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${num}`)
+    .then((response) => response.json())
+    .then((json) => (pokemon = json))
+    .catch((error) => {
+      console.error("Error fetching Pokemon data:", error);
+      throw new Error("Failed to fetch Pokemon data");
+    });
 }
 
-//bucle que recorre teniendo en cuenta la cantidad de pokemon ( 6 por equipo por eso hay 6 botones) 
-//d iferenciandose por el que hace el math random y luego el que limpia .
-for(let i = 1; i <= 6; i++){
-    const boton = document.querySelector(`#pokemonRandom${i}`)
-    boton.addEventListener('click', async () => {
-    let num = Math.floor(Math.random() * 151) + 1
-    // equipo es un objeto de tipo {1: 1, 2: 4, 3: 7} lo utilizo para valorar que segun el id, no coincidan los mismos pokemon y no pueda repetirse
-    while(Object.values(equipo).includes(num)){
-        num = Math.floor(Math.random() * 151) + 1
+// Bucle que recorre los 6 grupos de botones
+for (let i = 1; i <= 6; i++) {
+  const boton = document.querySelector(`#pokemonRandom${i}`);
+
+  // Evento click para obtener un Pokémon aleatorio
+  boton.addEventListener("click", async () => {
+    try {
+      let num = Math.floor(Math.random() * 151) + 1;
+
+      // Evita la repetición del mismo Pokémon en el equipo
+      while (Object.values(equipo).includes(num)) {
+        num = Math.floor(Math.random() * 151) + 1;
+      }
+
+      equipo[i] = num;
+      await iniciarPokemon(num);
+
+      // Muestra el nombre y la imagen del Pokémon
+      document.querySelector(`#pokemon${i}`).innerHTML = `
+                <h1>${pokemon.name}</h1>
+                <img src="${pokemon.sprites.front_default}" class="imgPokemon" alt="${pokemon.name}" />  
+            `;
+    } catch (error) {
+      console.error("Error processing Pokemon:", error);
     }
-    equipo[i] = num
-    await iniciarPokemon(num)
-    console.log(pokemon)
-    //esto muestra el nombre del pokemon y el sprite que seria la imagen
-    document.querySelector(`#pokemon${i}`).innerHTML = `
-        <h1>${pokemon.name}</h1>
-        <img src="${pokemon.sprites.front_default}" class="imgPokemon" alt="${pokemon.name}" />  
-    `
-    })
-    // esto devuelve al valor default ( sin mostrar nada y sin pokemon seleccionado )
-    document.querySelector(`#limpiar${i}`).addEventListener('click', () => {
-        document.querySelector(`#pokemon${i}`).innerHTML = ""
-        equipo[i] = undefined
-    })
-}
+  });
 
+  // Evento click para limpiar la sección y eliminar el Pokémon seleccionado
+  document.querySelector(`#limpiar${i}`).addEventListener("click", () => {
+    document.querySelector(`#pokemon${i}`).innerHTML = "";
+    equipo[i] = undefined;
+  });
+}
