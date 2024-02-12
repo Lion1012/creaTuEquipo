@@ -47,7 +47,7 @@ Asegúrate de tener Node.js y npm instalados en tu sistema.
 
 ## Autor
 
-LionDev - [TuPerfilGitHub](https://github.com/Lion1012/creaTuEquipo)
+[LionDev](https://github.com/Lion1012/creaTuEquipo)
 
 ## Agradecimientos
 
