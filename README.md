@@ -1,6 +1,7 @@
 # creaTuEquipo
 
 Bienvenido a **creaTuEquipo**. Esta aplicación web te permite crear un equipo de Pokémon de forma aleatoria. Puedes generar Pokémon aleatorios para cada uno de los 6 espacios disponibles y limpiar la selección en cualquier momento.
+
 [Deploy](https://lion1012.github.io/creaTuEquipo/)
 ## Cómo Funciona
 
